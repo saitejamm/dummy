@@ -61,7 +61,7 @@
         widgetDiv.style.display="block";
         if(widgetDiv.dataset.loaded == "false") {
             var widgetFrame = d.createElement('iframe');
-            widgetFrame.setAttribute('src', "http://"+div.dataset.team+".surgecurve.com/Widget");
+            widgetFrame.setAttribute('src', "//"+div.dataset.team+".surgecurve.com/Widget");
             widgetFrame.setAttribute('frameborder', '0');
             widgetFrame.setAttribute("style","width:100%; height:100%;");
             widgetDiv.appendChild(widgetFrame);
