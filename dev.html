@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Widget Development Page</title>
+</head>
+<body>
+<h1>A Website</h1>
+<h3>For Development purposes</h3>
+<p>Click the Button to see the widget ----></p>
+<div id="surgecurve-widget" data-title="Learn More About Us" data-button="small" data-team="myapp65"></div>
+<script>
+(function(d, id) {
+    var div = d.getElementById(id);
+    var buttonType = div.dataset.button;
+
+    var widgetDiv = d.createElement("div");
+    widgetDiv.setAttribute("id","surgecurve-widget-block");
+    widgetDiv.setAttribute("style","display:none; position:fixed; top:0; right:0; bottom:0; width:320px; background-color:#f3f4f7; z-index:100000; margin-top:40px;");
+    widgetDiv.dataset.loaded = false;
+    div.appendChild(widgetDiv);
+
+    var widgetHeader = d.createElement("div");
+    widgetHeader.setAttribute("style","position:fixed; top:0; right:0; height:40px; width:320px; background-color:blue; z-index:100001; cursor:pointer;");
+    var headerTitle = d.createElement("div");
+    headerTitle.setAttribute("style",
+    "display:inline-block; line-height:40px; margin-left:20px; color:white; font-size:11px;"
+    );
+    headerTitle.innerHTML = div.dataset.title;
+    widgetHeader.appendChild(headerTitle);
+    var headerClose = d.createElement("div");
+    headerClose.setAttribute("style",
+    "display:inline-block; line-height:40px; margin-right:10px; color:white; font-size:16px; float:right;"
+    );
+    headerClose.innerHTML = "x";
+    widgetHeader.appendChild(headerClose);
+    widgetHeader.onclick = function(){
+        widgetDiv.style.display="none";
+    };
+    widgetDiv.appendChild(widgetHeader);
+
+    var buttonTitle = d.createElement("div");
+    var floatButton = d.createElement("div");
+    if(buttonType=="small") {
+        floatButton.setAttribute("style",
+        "position:absolute; right:20px; bottom:20px; height:50px; width:50px; background-color:blue; z-index:99999; border-radius: 25px; text-align:center; cursor:pointer;"
+        );
+        buttonTitle.setAttribute("style",
+        "display:inline-block; line-height:50px; margin:0 auto; color:white; font-size:11px;"
+        );
+        buttonTitle.innerHTML = "SC"
+    } else {
+        floatButton.setAttribute("style",
+        "position:absolute; right:10px; bottom:10px; height:40px; width:150px; background-color:blue; z-index:99999; border-radius: 5px; text-align:center; cursor:pointer;"
+        );
+        buttonTitle.setAttribute("style",
+        "display:inline-block; line-height:40px; margin:0 auto; color:white; font-size:11px;"
+        );
+        buttonTitle.innerHTML = div.dataset.title;
+    }
+    floatButton.appendChild(buttonTitle);
+    floatButton.onclick = function(){ 
+        widgetDiv.style.display="block";
+        if(widgetDiv.dataset.loaded == "false") {
+            var widgetFrame = d.createElement('iframe');
+            widgetFrame.setAttribute('src', "http://"+div.dataset.team+".surgecurve.com/Widget");
+            widgetFrame.setAttribute('frameborder', '0');
+            widgetFrame.setAttribute("style","width:100%; height:100%;");
+            widgetDiv.appendChild(widgetFrame);
+            widgetDiv.dataset.loaded = "true"
+        }
+    }
+    div.appendChild(floatButton);
+
+
+}(document,'surgecurve-widget'));
+</script>
+
+</body>
+</html>
